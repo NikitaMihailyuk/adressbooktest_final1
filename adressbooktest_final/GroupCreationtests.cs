@@ -7,10 +7,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace SeleniumTests
+namespace WebAdressbookTests
 {
     [TestFixture]
-    public class Untitled
+    public class GroupCreationTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,7 +40,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void TheUntitledTest()
+        public void GroupCreationTest()
         {
             driver.Navigate().GoToUrl(baseURL + "addressbook/");
             // ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
