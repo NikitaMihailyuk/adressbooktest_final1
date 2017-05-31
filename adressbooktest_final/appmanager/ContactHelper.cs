@@ -12,9 +12,43 @@ namespace WebAdressbookTests
     public class ContactHelper :HelperBase
     {
        
-
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
+        }
+
+        public ContactHelper ContactRemove(int v)
+        {
+            SelectContactForModification(v);
+            RemoveContact();
+            manager.Navigator.Clicktohome();
+            return this;
+        }
+
+        public ContactHelper ModifyContact(int v, ContactData newContact)
+        {
+            SelectContactForModification(v);
+            FillNewContact(newContact);
+            UpdateNewContact();
+            manager.Navigator.Clicktohome();
+            return this;
+        }
+
+        public ContactHelper UpdateNewContact()
+        {
+            driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("(//input[@name='update'])[3]")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContactForModification(int v)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + v + "]")).Click();
+            return this;
         }
 
         public ContactHelper SubmitNewContact()
@@ -65,7 +99,6 @@ namespace WebAdressbookTests
             new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.Amonth);
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
-            new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText("[none]");
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(contact.Address2);
             driver.FindElement(By.Name("phone2")).Clear();
@@ -90,4 +123,5 @@ namespace WebAdressbookTests
             return this;
         }
     }
+
 }
