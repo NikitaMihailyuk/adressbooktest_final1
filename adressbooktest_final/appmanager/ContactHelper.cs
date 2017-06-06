@@ -47,7 +47,7 @@ namespace WebAdressbookTests
 
         public ContactHelper SelectContactForModification(int v)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + v + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v+1) + "]")).Click();
             return this;
         }
 
@@ -59,7 +59,7 @@ namespace WebAdressbookTests
 
         public bool CheckContact(int v)
         {
-            return IsElementPresent(By.Name("Selected[" + v + "]"));
+            return IsElementPresent(By.Name("Selected[" + (v+1) + "]"));
         }
 
         public ContactHelper FillNewContact(ContactData contact)
@@ -105,6 +105,20 @@ namespace WebAdressbookTests
         {
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
+        }
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
+            int elcount = elements.Count();
+            for (int index = 1; index < elcount ; index++)
+            {
+                IWebElement lastName = driver.FindElement(By.XPath("(//tr[@name='entry'][" + index + "]/td[2])"));
+                IWebElement firstName = driver.FindElement(By.XPath("(//tr[@name='entry'][" + index + "]/td[3])"));
+                contacts.Add(new ContactData(firstName.Text+lastName.Text));
+            }
+            return contacts;
         }
     }
 

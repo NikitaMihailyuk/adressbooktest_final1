@@ -14,15 +14,17 @@ namespace WebAdressbookTests
         public void ContactRemovalTest()
         {
 
-            if (app.Contacts.CheckContact(2))
+            if (app.Contacts.CheckContact(1))
             {
                 ContactData contact = new ContactData("name");
                 contact.Firstname = "Nickita2";
-                contact.Lastname = "Mihailyuk2";
-                contact.Middlename = "all_ok";
                 app.Contacts.Create(contact);
             }
-            app.Contacts.ContactRemove(2);
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            app.Contacts.ContactRemove(1);
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.RemoveAt(1);
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

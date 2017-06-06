@@ -12,20 +12,27 @@ namespace WebAdressbookTests
     {
         [Test]
         public void ContactModificationTest()
-        { 
-           if (app.Contacts.CheckContact(2))
+        {
+            if (app.Contacts.CheckContact(1))
             {
-                ContactData contact = new ContactData("name");
-                contact.Firstname = "Nickita2";
+                ContactData contact = new ContactData("name56");
                 contact.Lastname = "Mihailyuk2";
                 contact.Middlename = "all_ok";
                 app.Contacts.Create(contact);
             }
-            ContactData newContact = new ContactData("name56");
-            newContact.Firstname = "Nickita3212";
-            newContact.Lastname = null;
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            ContactData newContact = new ContactData("name5222");
+            newContact.Lastname = "434344";
             newContact.Middlename = null;
-            app.Contacts.ModifyContact(2, newContact);
+            app.Contacts.ModifyContact(1, newContact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts[1].Firstname = newContact.Firstname + newContact.Lastname;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
         }
     }
 }
