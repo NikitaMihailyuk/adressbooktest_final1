@@ -22,10 +22,15 @@ namespace WebAdressbookTests
                 app.Groups.Create(group);
             }
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData toBeRemoved = oldGroups[1];
             app.Groups.Remove(1);
+            Assert.AreEqual(oldGroups.Count  - 1, app.Groups.GetGroupCount());
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.RemoveAt(1);
-
+            foreach (GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id); ;
+            }
             Assert.AreEqual(oldGroups, newGroups);
         }
     }

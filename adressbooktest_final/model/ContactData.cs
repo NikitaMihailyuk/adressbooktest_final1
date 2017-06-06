@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace WebAdressbookTests
 {
-  public  class ContactData : IEquatable<ContactData>, IComparable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstname;
         private string middlename = "";
-        private string lastname = "";
+        private string lastname;
         private string nickname = "";
         private string photo = "";
         private string title = "";
@@ -34,11 +33,16 @@ namespace WebAdressbookTests
         private string phone2 = "";
         private string notes = "";
 
+        public ContactData(string firstname, string lastname)
+        {
+            this.firstname = firstname;
+            this.lastname = lastname;
+        }
         public ContactData(string firstname)
         {
             this.firstname = firstname;
+      
         }
-
         public ContactData(string firstname, string middlename, string lastname)
         {
             this.firstname = firstname;
@@ -338,7 +342,7 @@ namespace WebAdressbookTests
         }
         public override string ToString()
         {
-            return Firstname+Lastname;
+            return Firstname + Lastname;
         }
         public int CompareTo(ContactData other)
         {
@@ -346,8 +350,7 @@ namespace WebAdressbookTests
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Firstname) + Lastname.CompareTo(other.Lastname);
+            return Firstname.CompareTo(other.Firstname);
         }
     }
 }
-
