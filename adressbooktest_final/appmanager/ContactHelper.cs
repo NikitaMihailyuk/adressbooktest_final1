@@ -23,7 +23,10 @@ namespace WebAdressbookTests
             manager.Navigator.Clicktohome();
             return this;
         }
-
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.Name("entry")).Count;
+        }
         public ContactHelper ModifyContact(int v, ContactData newContact)
         {
             SelectContactForModification(v);
@@ -119,11 +122,12 @@ namespace WebAdressbookTests
                 contactCache = new List<ContactData>();
                 List<ContactData> contacts = new List<ContactData>();
                 ICollection<IWebElement> contactElements = driver.FindElements(By.Name("entry"));
-                foreach (IWebElement contactElement in contactElements)
+                foreach (IWebElement element in contactElements)
                 {
-                    string fn = contactElement.FindElements(By.TagName("td"))[2].Text;
-                    string ln = contactElement.FindElements(By.TagName("td"))[1].Text;
-                    contactCache.Add(new ContactData(fn, ln));
+                    string fn = element.FindElements(By.TagName("td"))[2].Text;
+                    string ln = element.FindElements(By.TagName("td"))[1].Text;
+                    
+                    contactCache.Add(new ContactData(fn, ln) { Id = element.FindElement(By.TagName("input")).GetAttribute("value") });
                 }
             }
             return new List<ContactData>(contactCache);
