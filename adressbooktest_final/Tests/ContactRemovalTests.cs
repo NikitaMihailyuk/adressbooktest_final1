@@ -24,7 +24,6 @@ namespace WebAdressbookTests
             ContactData toBeRemoved = oldContacts[1];
 
 
-
             app.Contacts.ContactRemove(1);
 
 
