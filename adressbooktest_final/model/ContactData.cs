@@ -324,6 +324,8 @@ namespace WebAdressbookTests
                 notes = value;
             }
         }
+        public string Id { get; set; }
+
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -350,7 +352,7 @@ namespace WebAdressbookTests
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Firstname);
+            return Firstname.CompareTo(other.Firstname) + Lastname.CompareTo(other.Lastname);
         }
     }
 }

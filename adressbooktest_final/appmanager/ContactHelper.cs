@@ -36,6 +36,7 @@ namespace WebAdressbookTests
         public ContactHelper UpdateNewContact()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -48,12 +49,14 @@ namespace WebAdressbookTests
         public ContactHelper SelectContactForModification(int v)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v+1) + "]")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper SubmitNewContact()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -101,25 +104,31 @@ namespace WebAdressbookTests
             return this;
         }
 
+
         public ContactHelper AddNewContact()
         {
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.OpenHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr"));
-            int elcount = elements.Count();
-            for (int index = 1; index < elcount ; index++)
+            if (contactCache == null)
             {
-                IWebElement lastName = driver.FindElement(By.XPath("(//tr[@name='entry'][" + index + "]/td[2])"));
-                IWebElement firstName = driver.FindElement(By.XPath("(//tr[@name='entry'][" + index + "]/td[3])"));
-                contacts.Add(new ContactData(firstName.Text+lastName.Text));
+                contactCache = new List<ContactData>();
+                List<ContactData> contacts = new List<ContactData>();
+                ICollection<IWebElement> contactElements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement contactElement in contactElements)
+                {
+                    string fn = contactElement.FindElements(By.TagName("td"))[2].Text;
+                    string ln = contactElement.FindElements(By.TagName("td"))[1].Text;
+                    contactCache.Add(new ContactData(fn, ln));
+                }
             }
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
+       
     }
 
 }
