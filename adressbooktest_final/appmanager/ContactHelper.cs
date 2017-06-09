@@ -16,11 +16,11 @@ namespace WebAdressbookTests
         {
         }
 
-        public ContactData GetContactInformationFromTable(int index)
+        public ContactData GetContactInformationFromTable(int inf)
         {
          manager.Navigator.OpenHomePage();
 
-          IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+          IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[inf]
          .FindElements(By.TagName("td"));
            string lastName = cells[1].Text;
            string FirstName = cells[2].Text;
@@ -71,8 +71,7 @@ namespace WebAdressbookTests
             string bmonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
             string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
 
-           string cell = firstname+lastname+middlename+nickname+
-                title+company+
+             string cell = firstname+lastname+middlename+nickname+ title+company+
                 address+homePhone+mobilePhone
                 +workPhone+fax+email1+email2+email3
                 +homepage+aday+amonth+ayear+bday+bmonth+byear;
@@ -82,10 +81,10 @@ namespace WebAdressbookTests
             return new ContactData (cell);
             }
        
-        public ContactData GetContactInformationFromEditForm(int index)
+        public ContactData GetContactInformationFromEditForm(int index1)
         {
             manager.Navigator.OpenHomePage();
-            SelectContactForModification(0);
+            SelectContactForModification(index1);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string adress = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -142,7 +141,6 @@ namespace WebAdressbookTests
             driver.FindElements(By.Name("entry"))[v]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
-
             contactCache = null;
             return this;
         }
@@ -151,7 +149,7 @@ namespace WebAdressbookTests
             driver.FindElements(By.Name("entry"))[v]
                 .FindElements(By.TagName("td"))[6]
                 .FindElement(By.TagName("a")).Click();
-            contactCache = null;
+        
             return this;
         }
 
@@ -219,6 +217,7 @@ namespace WebAdressbookTests
             if (contactCache == null)
             {
                 contactCache = new List<ContactData>();
+                manager.Navigator.OpenHomePage();
                 List<ContactData> contacts = new List<ContactData>();
                 ICollection<IWebElement> contactElements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in contactElements)
