@@ -61,6 +61,7 @@ namespace WebAdressbookTests
 
         }
 
+
         private string CleanUp(string phone)
         {
             if (phone == null || phone == "")
@@ -303,4 +304,4 @@ namespace WebAdressbookTests
             return Firstname.CompareTo(other.Firstname) + Lastname.CompareTo(other.Lastname);
         }
     }
-}
+    }
