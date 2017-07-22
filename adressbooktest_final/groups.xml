@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfGroupData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GroupData>
+    <Name>RX</Name>
+    <Header>222</Header>
+    <Footer>22</Footer>
+  </GroupData>
+  <GroupData>
+    <Name>233</Name>
+    <Header>444</Header>
+    <Footer>5555</Footer>
+  </GroupData>
+  <GroupData>
+    <Name />
+    <Header>=MaUJ#'N9$E=V&lt;K:#=3YaA@0N7</Header>
+    <Footer>&lt;$!'D02_HKA!FD*=K"':IX&lt;8@.)1]-Q'3LLK8</Footer>
+  </GroupData>
+</ArrayOfGroupData>
