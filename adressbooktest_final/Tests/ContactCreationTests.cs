@@ -60,7 +60,7 @@ namespace WebAdressbookTests
                 File.ReadAllText(@"contacts.json"));
         }
 
-        [Test, TestCaseSource("ContactDataFromXmlFile")]
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
 
         public void ContactCreationTest(ContactData contact)
         {

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LinqToDB.Mapping;
 
 namespace WebAdressbookTests
 {
-    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string nickname = "";
@@ -77,6 +75,9 @@ namespace WebAdressbookTests
             Middlename = middlename;
             Lastname = lastname;
         }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Middlename { get; set; }
 
         public string ACell
         {
@@ -626,6 +627,7 @@ namespace WebAdressbookTests
                 notes = value;
             }
         }
+        public string Id { get; set; }
 
         public bool Equals(ContactData other)
         {
@@ -657,25 +659,7 @@ namespace WebAdressbookTests
             {
                 return Firstname.CompareTo(other.Firstname);   
             }
-            return   Lastname.CompareTo(other.Lastname);
-        }
-
-        [Column(Name = "firstname"), NotNull]
-        public string Firstname { get; set; }
-        [Column(Name = "lastname")]
-        public string Lastname { get; set; }
-        [Column(Name = "middlename")]
-        public string Middlename { get; set; }
-        [Column(Name = "id"), PrimaryKey, Identity]
-        public string Id { get; set; }
-
-        public static List<ContactData> GetAll()
-        {
-            using (AddressBookDB db = new AddressBookDB())
-            {
-                return (from g in db.Contacts select g).ToList();
-            }
-        }
-
+            return     Lastname.CompareTo(other.Lastname);
+        } 
     }
     }

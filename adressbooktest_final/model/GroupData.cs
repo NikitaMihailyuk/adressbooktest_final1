@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LinqToDB.Mapping;
 
 namespace WebAdressbookTests
 {
-    [Table(Name = "group_list")]
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         private string name;
-        private string header = "";
+        private string header ="";
         private string footer = "";
         public GroupData(string name)
         {
-            Name = name;
+            Name = name; 
         }
         public GroupData()
         {
@@ -23,14 +21,17 @@ namespace WebAdressbookTests
         public GroupData(string name, string header, string footer)
         {
             Name = name;
-            Header = header;
-            Footer = footer;
+           Header = header;
+            Footer= footer;
         }
-     
+        public string Name { get; set; }
+        public string Header { get; set; }
+        public string Footer { get; set; }
+        public string Id { get; set; }
 
         public bool Equals(GroupData other)
         {
-            if (Object.ReferenceEquals(other, null))
+         if(Object.ReferenceEquals (other, null))
             {
                 return false;
             }
@@ -46,7 +47,7 @@ namespace WebAdressbookTests
         }
         public override string ToString()
         {
-            return "name=" + Name + "\nheader" + Header + "\nfooter" + Footer;
+            return "name=" + Name + "\nheader" +Header+ "\nfooter" + Footer;
         }
         public int CompareTo(GroupData other)
         {
@@ -55,27 +56,6 @@ namespace WebAdressbookTests
                 return 1;
             }
             return Name.CompareTo(other.Name);
-        }
-
-        [Column(Name = "group_name"), NotNull]
-        public string Name { get; set; }
-
-        [Column(Name= "group_header")]
-        public string Header { get; set; }
-
-        [Column(Name = "group_footer")]
-
-        public string Footer { get; set; }
-        [Column(Name = "group_id"), PrimaryKey, Identity ]
-
-        public string Id { get; set; }
-
-        public  static List<GroupData>  GetAll()
-        {
-            using (AddressBookDB db = new AddressBookDB())
-            {
-               return  (from g in db.Groups select g).ToList();
-            }
         }
     }
    

@@ -21,16 +21,12 @@ namespace WebAdressbookTests
                 app.Contacts.Create(contact);
             }
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-            ///Даный тест нельзя изменить так как из бд контакты не удаляются нужно писать запрос для возврата только тех данных
-            //у которых нет даты конца в БД
-          
             ContactData toBeRemoved = oldContacts[0];
 
 
             app.Contacts.ContactRemove(0);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
-            
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 

@@ -33,22 +33,6 @@ namespace WebAdressbookTests
         {
            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
-        public GroupHelper Remove(GroupData group)
-        {
-            manager.Navigator.GoToGroupsPage();
-            SelectGroup(group.Id);
-            RemoveGroup();
-            ReturnToGroupsPage();
-            return this;
-
-        }
-
-
-        public GroupHelper SelectGroup(string id)
-        {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
-            return this;
-        }
 
         private List<GroupData> groupCache = null;
 
@@ -79,17 +63,6 @@ namespace WebAdressbookTests
                 }
             }
             return new List<GroupData>(groupCache);
-        }
-
-        public GroupHelper Modify(GroupData group, GroupData newData)
-        {
-            manager.Navigator.GoToGroupsPage();
-            SelectGroup(group.Id);
-            InitGroupModification();
-            FillGroupForm(newData);
-            SubmitGroupModification();
-            ReturnToGroupsPage();
-            return this;
         }
 
         public GroupHelper Modify(int v, GroupData newData)
