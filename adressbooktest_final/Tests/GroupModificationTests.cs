@@ -8,12 +8,12 @@ using NUnit.Framework;
 namespace WebAdressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase
+    public class GroupModificationTests : GroupTestBase
     {
         [Test]
         public void GroupModificationTest()
         {
-            if (app.Groups.CheckGroup(1))
+            if (app.Groups.CheckGroup(0))
             {
                 GroupData group = new GroupData("gruppa1");
                 group.Header = ("gh1");
@@ -21,16 +21,17 @@ namespace WebAdressbookTests
                 app.Groups.Create(group);
             }
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll() ;
             GroupData oldData = oldGroups[0];
 
-            GroupData newData = new GroupData("zzz");
-            newData.Header = null;
+            GroupData newData = new GroupData("z2323z");
+            newData.Header = "2fgfdgdfg3";
             newData.Footer = null;
+            app.Groups.Modify(oldData, newData);
 
-            app.Groups.Modify(0, newData);
+
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups[0].Name = newData.Name;
 
 

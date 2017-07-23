@@ -125,6 +125,8 @@ namespace WebAdressbookTests
             manager.Navigator.Clicktohome();
             return this;
         }
+
+
         public int GetContactCount()
         {
             return driver.FindElements(By.Name("entry")).Count;
